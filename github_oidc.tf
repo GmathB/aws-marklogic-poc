@@ -34,8 +34,8 @@ resource "aws_iam_role" "github_actions" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            # Replace with your GitHub username/org and repo name
-            "token.actions.githubusercontent.com:sub" = "repo:YOUR_GITHUB_USERNAME/YOUR_REPO_NAME:*"
+            # I have added my repo name here 
+            "token.actions.githubusercontent.com:sub" = "repo:GmathB/aws-marklogic-poc:*"
           }
         }
       }
