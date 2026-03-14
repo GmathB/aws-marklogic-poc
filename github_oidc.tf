@@ -152,6 +152,19 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
       {
         Effect = "Allow"
         Action = [
+          "dynamodb:DescribeTable",
+          "dynamodb:GetItem",
+          "dynamodb:PutItem",
+          "dynamodb:DeleteItem",
+          "dynamodb:CreateTable",
+          "dynamodb:DeleteTable",
+          "dynamodb:TagResource"
+        ]
+        Resource = "arn:aws:dynamodb:ap-south-1:013596899729:table/terraform-state-lock"
+      },
+      {
+        Effect = "Allow"
+        Action = [
           "sts:GetCallerIdentity"
         ]
         Resource = "*"
