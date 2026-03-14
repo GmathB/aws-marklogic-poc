@@ -1,0 +1,36 @@
+# Terraform state files (use S3 backend instead)
+terraform.tfstate
+terraform.tfstate.*
+.terraform/
+
+# .terraform.lock.hcl SHOULD be committed for reproducible builds
+# (Left commented out intentionally)
+
+# Terraform plan files
+tfplan
+plan_output.txt
+terraform_outputs.json
+
+# SSH Keys (never commit PEM files)
+*.pem
+*.ppk
+*.key
+
+# Local credential/secret files
+*.secret
+*.password
+.env
+.env.local
+credentials.json
+
+# OS files
+.DS_Store
+*.swp
+*.swo
+*~
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.iml
