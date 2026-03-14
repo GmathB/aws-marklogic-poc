@@ -112,7 +112,7 @@ resource "aws_instance" "marklogic_node_1" {
   }
 
   tags = {
-    Name = "marklogic-node-1"
+    Name = "marklogic-node-test-1"
   }
 }
 
