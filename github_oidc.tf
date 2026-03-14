@@ -112,7 +112,10 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "s3:PutBucketEncryption",
           "s3:GetBucketEncryption",
           "s3:PutBucketTagging",
-          "s3:GetBucketTagging"
+          "s3:GetBucketTagging",
+          "s3:GetBucketPolicy",
+          "s3:PutBucketPolicy",
+          "s3:DeleteBucketPolicy"
         ]
         Resource = [
           "arn:aws:s3:::marklogic-terraform-state-013596899729",
@@ -133,7 +136,10 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "secretsmanager:PutSecretValue",
           "secretsmanager:UpdateSecret",
           "secretsmanager:TagResource",
-          "secretsmanager:RestoreSecret"
+          "secretsmanager:RestoreSecret",
+          "secretsmanager:GetResourcePolicy",
+          "secretsmanager:PutResourcePolicy",
+          "secretsmanager:DeleteResourcePolicy"
         ]
         Resource = "arn:aws:secretsmanager:ap-south-1:013596899729:secret:marklogic-*"
       },
@@ -145,7 +151,10 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "logs:DescribeLogGroups",
           "logs:PutRetentionPolicy",
           "logs:TagLogGroup",
-          "logs:UntagLogGroup"
+          "logs:UntagLogGroup",
+          "logs:ListTagsForResource",
+          "logs:TagResource",
+          "logs:UntagResource"
         ]
         Resource = "*"
       },
