@@ -118,7 +118,16 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "s3:DeleteBucketPolicy",
           "s3:GetBucketAcl",
           "s3:PutBucketAcl",
-          "s3:GetBucketCors"
+          "s3:GetBucketCors",
+          "s3:PutBucketCors",
+          "s3:GetBucketWebsite",
+          "s3:GetBucketLogging",
+          "s3:GetBucketRequestPayment",
+          "s3:GetBucketObjectLockConfiguration",
+          "s3:GetBucketNotification",
+          "s3:GetLifecycleConfiguration",
+          "s3:GetReplicationConfiguration",
+          "s3:GetAccelerateConfiguration"
         ]
         Resource = [
           "arn:aws:s3:::marklogic-terraform-state-013596899729",
