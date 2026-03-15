@@ -83,9 +83,9 @@ jobs:
         run: |
           terraform plan -no-color -out=tfplan
           terraform show -no-color tfplan > plan_output.txt
-        continue-on-error: true
 
       - name: Upload Plan
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: terraform-plan
