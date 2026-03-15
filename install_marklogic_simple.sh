@@ -8,7 +8,7 @@ echo "=========================================="
 
 # Install dependencies
 sudo yum update -y
-sudo yum install -y glibc libstdc++ gdb wget curl net-tools
+sudo yum install -y glibc libstdc++ gdb wget net-tools
 
 # Create MarkLogic user
 if ! id -u marklogic &>/dev/null; then
