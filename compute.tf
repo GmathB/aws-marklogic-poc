@@ -91,7 +91,7 @@ data "aws_ami" "amazon_linux_2023" {
 # MarkLogic Node 1 (AZ: ap-south-1a)
 resource "aws_instance" "marklogic_node_1" {
   ami           = data.aws_ami.amazon_linux_2023.id
-  instance_type = "t3.medium"
+  instance_type = "t3.large"
 
   subnet_id = aws_subnet.private_subnet_1.id
   
