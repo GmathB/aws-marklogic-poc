@@ -112,6 +112,7 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "s3:PutBucketEncryption",
           "s3:GetBucketEncryption",
           "s3:GetEncryptionConfiguration",
+          "s3:PutEncryptionConfiguration",
           "s3:PutBucketTagging",
           "s3:GetBucketTagging",
           "s3:GetBucketPolicy",
