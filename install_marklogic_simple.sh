@@ -9,18 +9,12 @@ echo "MarkLogic Installation - $(date)"
 echo "=========================================="
 
 ########################################
-# 1. Disable dualstack S3 for yum (instance has no IPv6/dualstack route)
-########################################
-echo "[INFO] Disabling dualstack S3 for yum repos..."
-sudo sed -i 's/^metalink=.*$/&\nip_resolve=4/' /etc/yum.repos.d/amazonlinux.repo 2>/dev/null || true
-echo 'ip_resolve=4' | sudo tee -a /etc/dnf/dnf.conf
-
-########################################
-# 2. OS Dependencies
+# 1. OS Dependencies (skip yum update - avoids dualstack S3 metalink timeout)
 ########################################
 echo "[INFO] Installing dependencies..."
-sudo yum update -y
-sudo yum install -y glibc libstdc++ gdb wget net-tools curl jq aws-cli python3
+# yum update skipped intentionally - AL2023 metalink uses s3.dualstack which is
+# unreachable in private subnet without NAT. Fresh AMI is recent enough.
+sudo yum install -y glibc libstdc++ gdb wget net-tools curl jq python3 --setopt=ip_resolve=4
 
 ########################################
 # 2. Service User
