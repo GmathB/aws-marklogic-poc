@@ -12,9 +12,9 @@ echo "=========================================="
 # 1. OS Dependencies
 ########################################
 echo "[INFO] Installing dependencies..."
-# yum update intentionally skipped - hits dualstack S3 metalink which is unreachable
-# without NAT gateway. AL2023 AMI is recent enough. aws-cli and python3 pre-installed.
-sudo yum install -y glibc libstdc++ gdb wget net-tools curl jq --setopt=ip_resolve=4
+# gdb and wget not in AL2023 base repos, most packages already pre-installed
+# || true prevents exit on already-installed packages with set -e
+sudo yum install -y glibc libstdc++ net-tools curl jq --setopt=ip_resolve=4 || true
 
 ########################################
 # 2. Service User
