@@ -28,10 +28,11 @@ resource "aws_security_group" "marklogic_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "HTTPS to VPC endpoints only"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   tags = {
@@ -39,16 +40,7 @@ resource "aws_security_group" "marklogic_sg" {
   }
 }
 
-# Allow inter-node communication between MarkLogic instances
-resource "aws_security_group_rule" "marklogic_inter_node" {
-  description              = "Allow inter-node communication"
-  type                     = "ingress"
-  from_port                = 0
-  to_port                  = 65535
-  protocol                 = "tcp"
-  source_security_group_id = aws_security_group.marklogic_sg.id
-  security_group_id        = aws_security_group.marklogic_sg.id
-}
+# Inter-node rule removed - single node deployment, re-add when cluster is needed
 
 resource "aws_cloudwatch_log_group" "vpc_flow_logs" {
   name              = "/aws/vpc/marklogic-flowlogs"

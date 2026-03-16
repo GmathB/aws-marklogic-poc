@@ -1,9 +1,23 @@
+# VPC Endpoint for CloudWatch Logs (required for CloudWatch agent - replaces NAT)
+resource "aws_vpc_endpoint" "cloudwatch_logs" {
+  vpc_id              = aws_vpc.marklogic_vpc.id
+  service_name        = "com.amazonaws.ap-south-1.logs"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = [aws_subnet.private_subnet_1.id]
+  security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
+  private_dns_enabled = true
+
+  tags = {
+    Name = "marklogic-cloudwatch-logs-endpoint"
+  }
+}
+
 # VPC Endpoint for Systems Manager (SSM)
 resource "aws_vpc_endpoint" "ssm" {
   vpc_id              = aws_vpc.marklogic_vpc.id
   service_name        = "com.amazonaws.ap-south-1.ssm"
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  subnet_ids          = [aws_subnet.private_subnet_1.id]
   security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
   private_dns_enabled = true
 
@@ -17,7 +31,7 @@ resource "aws_vpc_endpoint" "ec2messages" {
   vpc_id              = aws_vpc.marklogic_vpc.id
   service_name        = "com.amazonaws.ap-south-1.ec2messages"
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  subnet_ids          = [aws_subnet.private_subnet_1.id]
   security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
   private_dns_enabled = true
 
@@ -31,7 +45,7 @@ resource "aws_vpc_endpoint" "ssmmessages" {
   vpc_id              = aws_vpc.marklogic_vpc.id
   service_name        = "com.amazonaws.ap-south-1.ssmmessages"
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  subnet_ids          = [aws_subnet.private_subnet_1.id]
   security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
   private_dns_enabled = true
 
@@ -45,7 +59,7 @@ resource "aws_vpc_endpoint" "secrets_manager" {
   vpc_id              = aws_vpc.marklogic_vpc.id
   service_name        = "com.amazonaws.ap-south-1.secretsmanager"
   vpc_endpoint_type   = "Interface"
-  subnet_ids          = [aws_subnet.private_subnet_1.id, aws_subnet.private_subnet_2.id]
+  subnet_ids          = [aws_subnet.private_subnet_1.id]
   security_group_ids  = [aws_security_group.vpc_endpoints_sg.id]
   private_dns_enabled = true
 
@@ -80,10 +94,11 @@ resource "aws_security_group" "vpc_endpoints_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = "Response traffic within VPC only"
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   tags = {

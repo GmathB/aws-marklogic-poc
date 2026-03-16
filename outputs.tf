@@ -32,6 +32,7 @@ output "vpc_endpoints" {
     ssmmessages      = aws_vpc_endpoint.ssmmessages.id
     secrets_manager  = aws_vpc_endpoint.secrets_manager.id
     s3_gateway       = aws_vpc_endpoint.s3.id
+    cloudwatch_logs  = aws_vpc_endpoint.cloudwatch_logs.id
   }
 }
 
