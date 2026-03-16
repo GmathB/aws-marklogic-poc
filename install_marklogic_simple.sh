@@ -9,7 +9,14 @@ echo "MarkLogic Installation - $(date)"
 echo "=========================================="
 
 ########################################
-# 1. OS Dependencies
+# 1. Disable dualstack S3 for yum (instance has no IPv6/dualstack route)
+########################################
+echo "[INFO] Disabling dualstack S3 for yum repos..."
+sudo sed -i 's/^metalink=.*$/&\nip_resolve=4/' /etc/yum.repos.d/amazonlinux.repo 2>/dev/null || true
+echo 'ip_resolve=4' | sudo tee -a /etc/dnf/dnf.conf
+
+########################################
+# 2. OS Dependencies
 ########################################
 echo "[INFO] Installing dependencies..."
 sudo yum update -y
