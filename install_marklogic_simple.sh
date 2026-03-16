@@ -9,12 +9,12 @@ echo "MarkLogic Installation - $(date)"
 echo "=========================================="
 
 ########################################
-# 1. OS Dependencies (skip yum update - avoids dualstack S3 metalink timeout)
+# 1. OS Dependencies
 ########################################
 echo "[INFO] Installing dependencies..."
-# yum update skipped intentionally - AL2023 metalink uses s3.dualstack which is
-# unreachable in private subnet without NAT. Fresh AMI is recent enough.
-sudo yum install -y glibc libstdc++ gdb wget net-tools curl jq python3 --setopt=ip_resolve=4
+# yum update intentionally skipped - hits dualstack S3 metalink which is unreachable
+# without NAT gateway. AL2023 AMI is recent enough. aws-cli and python3 pre-installed.
+sudo yum install -y glibc libstdc++ gdb wget net-tools curl jq --setopt=ip_resolve=4
 
 ########################################
 # 2. Service User
