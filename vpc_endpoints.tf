@@ -69,6 +69,7 @@ resource "aws_vpc_endpoint" "secrets_manager" {
 }
 
 # VPC Endpoint for S3 (Gateway type - no cost)
+# Covers standard S3. ip_resolve=4 in dnf.conf ensures yum uses IPv4 S3 URLs.
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = aws_vpc.marklogic_vpc.id
   service_name      = "com.amazonaws.ap-south-1.s3"
