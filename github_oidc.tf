@@ -125,6 +125,7 @@ resource "aws_iam_role_policy" "github_actions_terraform" {
           "s3:GetBucketLogging",
           "s3:GetBucketRequestPayment",
           "s3:GetBucketObjectLockConfiguration",
+          "s3:PutBucketObjectLockConfiguration",
           "s3:GetBucketNotification",
           "s3:GetLifecycleConfiguration",
           "s3:GetReplicationConfiguration",
