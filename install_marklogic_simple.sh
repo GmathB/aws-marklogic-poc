@@ -15,6 +15,9 @@ if ! id -u marklogic &>/dev/null; then
   sudo useradd -r -m -s /sbin/nologin marklogic
 fi
 
+# Disable EC2 host mode to prevent startup hang on non-marketplace AMI
+echo "MARKLOGIC_EC2_HOST=0" | sudo tee /etc/marklogic.conf
+
 # Create directories
 sudo mkdir -p /opt/MarkLogic /var/opt/MarkLogic/Logs
 sudo chown -R marklogic:marklogic /var/opt/MarkLogic /opt/MarkLogic
