@@ -1,9 +1,10 @@
 
  terraform {
    backend "s3" {
-     bucket         = "marklogic-terraform-state-013596899729"
-     key            = "marklogic/terraform.tfstate"
-     region         = "ap-south-1"
-     encrypt        = true
+     bucket       = "marklogic-terraform-state-013596899729"
+     key          = "marklogic/terraform.tfstate"
+     region       = "ap-south-1"
+     encrypt      = true
+     use_lockfile = true
    }
  }

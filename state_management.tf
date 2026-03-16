@@ -1,20 +1,33 @@
 data "aws_caller_identity" "current" {}
 
-# S3 Bucket for Terraform State
+# S3 Bucket for Terraform State with Object Lock
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "marklogic-terraform-state-${data.aws_caller_identity.current.account_id}"
+  object_lock_enabled = true
 
   tags = {
     Name = "marklogic-terraform-state"
   }
 }
 
-# Enable versioning on S3 bucket
+# Enable versioning on S3 bucket (required for Object Lock)
 resource "aws_s3_bucket_versioning" "terraform_state_versioning" {
   bucket = aws_s3_bucket.terraform_state.id
 
   versioning_configuration {
     status = "Enabled"
+  }
+}
+
+# Configure S3 Object Lock
+resource "aws_s3_bucket_object_lock_configuration" "terraform_state_lock" {
+  bucket = aws_s3_bucket.terraform_state.id
+
+  rule {
+    default_retention {
+      mode = "GOVERNANCE"
+      days = 1
+    }
   }
 }
 
